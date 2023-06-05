@@ -4,7 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devsuperior.dscommerce.dto.ProductDTO;
@@ -29,5 +31,10 @@ public class ProductController {
 	@GetMapping
 	public Page<ProductDTO> findAll(Pageable pageable) {
 		return this.productService.findAll(pageable);
+	}
+	
+	@PostMapping
+	public ProductDTO insert(@RequestParam final ProductDTO dto) {
+		return this.productService.insert(dto);
 	}
 }
