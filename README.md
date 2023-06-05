@@ -187,3 +187,30 @@ public class Product {
 	}
 ```
 ## Seed
+
+## Service and Repository
+
+> @Service
+
+> @Transational(readOnly=true)
+
+> @JPARepository<T, ID>
+
+## DTO
+
+## CRUD
+
+### Create / POST
+
+> @PostMapping
+
+### Read / GET
+
+> @GetMapping
+
+> @Pageable
+
+?size=12&page=0&sort=name,desc
+
+> @GetMapping("/{id}")
+> @PathVariable
