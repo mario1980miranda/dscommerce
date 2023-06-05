@@ -200,9 +200,23 @@ public class Product {
 
 ## CRUD
 
+
 ### Create / POST
 
 > @PostMapping
+
+> @RequestBody
+
+> ResponseEntity
+
+```java
+URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(dto.getId())
+				.toUri();
+return ResponseEntity.created(location).body(dto);
+```
 
 ### Read / GET
 
@@ -210,7 +224,8 @@ public class Product {
 
 > @Pageable
 
-?size=12&page=0&sort=name,desc
+Exemplos de parametros : ?size=12&page=0&sort=name,desc
 
 > @GetMapping("/{id}")
+
 > @PathVariable

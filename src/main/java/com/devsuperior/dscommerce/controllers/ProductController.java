@@ -1,13 +1,17 @@
 package com.devsuperior.dscommerce.controllers;
 
+import java.net.URI;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.dscommerce.dto.ProductDTO;
 import com.devsuperior.dscommerce.services.ProductService;
@@ -23,18 +27,25 @@ public class ProductController {
 	}
 
 	@GetMapping("/{id}")
-	public ProductDTO findById(@PathVariable final Long id) {
+	public ResponseEntity<ProductDTO> findById(@PathVariable final Long id) {
 		final ProductDTO dto = this.productService.findById(id);
-		return dto;
+		return ResponseEntity.ok(dto);
 	}
-	
+
 	@GetMapping
-	public Page<ProductDTO> findAll(Pageable pageable) {
-		return this.productService.findAll(pageable);
+	public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
+		final Page<ProductDTO> result = this.productService.findAll(pageable);
+		return ResponseEntity.ok(result);
 	}
-	
+
 	@PostMapping
-	public ProductDTO insert(@RequestParam final ProductDTO dto) {
-		return this.productService.insert(dto);
+	public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto) {
+		dto = this.productService.insert(dto);
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(dto.getId())
+				.toUri();
+		return ResponseEntity.created(location).body(dto);
 	}
 }
