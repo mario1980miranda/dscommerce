@@ -5,9 +5,11 @@ import java.net.URI;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,4 +50,17 @@ public class ProductController {
 				.toUri();
 		return ResponseEntity.created(location).body(dto);
 	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<ProductDTO> update(@PathVariable final Long id, @RequestBody final ProductDTO dto) {
+		final ProductDTO result = this.productService.update(id, dto);
+		return ResponseEntity.ok(result);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable final Long id) {
+		this.productService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
