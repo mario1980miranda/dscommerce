@@ -196,6 +196,10 @@ public class Product {
 
 > @JPARepository<T, ID>
 
+> @Transactional(propagation = Propagation.SUPPORTS)
+
+On doit l'utiliser pour capturer les exceptions qui ne sont pas liés au framework spring, par exemple h2.JDBC...Exception, avec le "Propagation.SUPPORTS" le DataIntegrityViolationException du Spring sera capture e on pourra le traiter dans le ExceptionHandler.
+
 ## DTO
 
 ## CRUD
@@ -259,3 +263,18 @@ public class ControllerExceptionHandler {
     "path": "/products/100"
 }
 ```
+
+## Bean Validation
+
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-validation</artifactId>
+</dependency>
+```
+
+[https://jakarta.ee/specifications/bean-validation/3.0/](https://jakarta.ee/specifications/bean-validation/3.0/)
+
+[https://jakarta.ee/specifications/bean-validation/3.0/apidocs/](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/)
+
+[https://javaee.github.io/tutorial/bean-validation.html](https://javaee.github.io/tutorial/bean-validation.html)
