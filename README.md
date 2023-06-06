@@ -229,3 +229,33 @@ Exemplos de parametros : ?size=12&page=0&sort=name,desc
 > @GetMapping("/{id}")
 
 > @PathVariable
+
+## Exceptions com Controller Advice
+
+Criar uma classe que vai interceptar todas as exceptions de determinadas classes customizadas. Por exemplo : 
+
+```java
+@ControllerAdvice
+public class ControllerExceptionHandler {
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<CustomError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+		final HttpStatus status = HttpStatus.NOT_FOUND;
+		final CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+}
+```
+
+> **ResourceNotFoundException.class** é nossa classe de erro customizada que extende RuntimeException, podemos tratar outros tipos de exception dentro desta classe.
+
+> **CustomError** classe criada com os mesmo atributos de um exception normal lançada por um Controller em um erro 500
+
+```json
+{
+    "timestamp": "2023-06-05T19:42:18.945+00:00",
+    "status": 500,
+    "error": "Internal Server Error",
+    "path": "/products/100"
+}
+```
