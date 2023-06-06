@@ -2,14 +2,17 @@ package com.devsuperior.dscommerce.services;
 
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dscommerce.dto.ProductDTO;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.repositories.ProductRepository;
+import com.devsuperior.dscommerce.services.exceptions.DatabaseException;
 import com.devsuperior.dscommerce.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -26,7 +29,7 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	public ProductDTO findById(final Long id) {
 		final Optional<Product> optionalProduct = this.productRepository.findById(id);
-		final Product entity = optionalProduct.orElseThrow(() -> new ResourceNotFoundException("Resource non trouvé"));
+		final Product entity = optionalProduct.orElseThrow(() -> new ResourceNotFoundException());
 		ProductDTO dto = new ProductDTO(entity);
 		return dto;
 	}
@@ -54,13 +57,20 @@ public class ProductService {
 			this.productRepository.save(entity);
 			return new ProductDTO(entity);
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Resource non trouvé");
+			throw new ResourceNotFoundException();
 		}
 	}
 	
-	@Transactional
+	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(final Long id) {
-		this.productRepository.deleteById(id);
+		if (!this.productRepository.existsById(id)) {
+			throw new ResourceNotFoundException();
+		}
+		try {
+			this.productRepository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Échec d'intégrité référentielle");
+		}
 	}
 	
 	private void copyDtoToEntity(final ProductDTO dto, Product entity) {
