@@ -14,3 +14,8 @@
 4.3 - username = email
 4.4 - getAuthorities retorna roles
 4.5 - os 4 metodos relacionados a conta retornam true
+
+5 - adicionar pacote projections
+5.1 - adicionar a projection
+5.2 - adicionar UserRepository com nativeQuery
+5.3 - implementar UserService
