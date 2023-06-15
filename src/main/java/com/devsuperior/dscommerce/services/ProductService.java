@@ -1,7 +1,6 @@
 package com.devsuperior.dscommerce.services;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dscommerce.dto.CategoryDTO;
 import com.devsuperior.dscommerce.dto.ProductDTO;
+import com.devsuperior.dscommerce.dto.ProductMinDTO;
 import com.devsuperior.dscommerce.entities.Category;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.repositories.CategoryRepository;
@@ -25,7 +25,7 @@ import jakarta.persistence.EntityNotFoundException;
 public class ProductService {
 
 	private ProductRepository productRepository;
-	
+
 	private CategoryRepository categoryRepository;
 
 	public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
@@ -41,11 +41,17 @@ public class ProductService {
 		return dto;
 	}
 
+//	@Transactional(readOnly = true)
+//	public Page<ProductDTO> findAll(Pageable pageable) {
+//		final Page<Product> result = this.productRepository.findAll(pageable);
+//		this.productRepository.searchProductsWithCategories(result.stream().collect(Collectors.toList()));
+//		return result.map(product -> new ProductDTO(product));
+//	}
+
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAll(Pageable pageable) {
-		final Page<Product> result = this.productRepository.findAll(pageable);
-		this.productRepository.searchProductsWithCategories(result.stream().collect(Collectors.toList()));
-		return result.map(product -> new ProductDTO(product));
+	public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
+		final Page<Product> result = this.productRepository.searchByName(name, pageable);
+		return result.map(product -> new ProductMinDTO(product));
 	}
 
 	@Transactional
@@ -85,7 +91,7 @@ public class ProductService {
 		entity.setDescription(dto.getDescription());
 		entity.setPrice(dto.getPrice());
 		entity.setImgUrl(dto.getImgUrl());
-		
+
 		for (CategoryDTO catDto : dto.getCategories()) {
 			Category catEntity = this.categoryRepository.getReferenceById(catDto.getId());
 			entity.getCategories().add(catEntity);

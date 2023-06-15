@@ -37,3 +37,7 @@
 9.3 - Criar um DTO para o usuario
 9.4 - No UserService criar metodo para recuperar o user logado (transactional readonly)
 9.5 - Criar UserController com a operacao para recuperar o usuario logado restrita para requisicoes autenticadas (hasAnyRole)
+
+10 - Criar um DTO para os dados minimos do Produto
+10.1 - alterar o findAll para retornar o DTO anterior
+10.2 - ajustar o Service
