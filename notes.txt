@@ -27,3 +27,6 @@
 7.3 - adicionar pacote customgrant
 7.4 - adicionar classes do projeto demo e ajustar os imports
 7.5 - testar o login
+
+8 - Controle de acesso por perfil e rota
+8.1 - adicionar nos controllers (insert, update e delete) a annotation de autorizacao ADMIN
