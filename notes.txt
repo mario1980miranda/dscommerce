@@ -30,3 +30,10 @@
 
 8 - Controle de acesso por perfil e rota
 8.1 - adicionar nos controllers (insert, update e delete) a annotation de autorizacao ADMIN
+
+9 - Obter o usuario logado
+9.1 - No UserService criar um metodo protegido para retornar o usuario autenticado pelo username do claims do token
+9.2 - No UserRepository criar um metodo queryMethod que retorna Optional<User> por email
+9.3 - Criar um DTO para o usuario
+9.4 - No UserService criar metodo para recuperar o user logado (transactional readonly)
+9.5 - Criar UserController com a operacao para recuperar o usuario logado restrita para requisicoes autenticadas (hasAnyRole)
