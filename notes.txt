@@ -1,0 +1,11 @@
+1 - modelo de dominio User -> Role
+2 - nova classe Role
+3 - alterar classe User 
+3.1 - relacionar N-N com Role
+3.2 - adicionar get
+3.3 - addRole
+3.4 - hasRole
+3.5 - Testar com o H2 
+3.6 - adicionar no seed (ROLE_CLIENT no lugar de OPERATOR e senha encriptada)
+
+3.2 - estender UserDetails

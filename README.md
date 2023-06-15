@@ -278,3 +278,61 @@ public class ControllerExceptionHandler {
 [https://jakarta.ee/specifications/bean-validation/3.0/apidocs/](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/)
 
 [https://javaee.github.io/tutorial/bean-validation.html](https://javaee.github.io/tutorial/bean-validation.html)
+
+# Spring Security
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+    <scope>test</scope>
+</dependency>
+```
+
+## Oauth2
+
+[https://oauth.net/2/](https://oauth.net/2/)
+
+- Dependencias AuthorizationServer e ResourceServer
+
+```xml
+<dependency>
+	<groupId>org.springframework.security</groupId>
+	<artifactId>spring-security-oauth2-authorization-server</artifactId>
+</dependency>
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+</dependency>
+```
+
+O Spring Security disponibiliza um caminho padrao no path para geracao do token JWT
+
+POST > host:port/oauth2/token
+
+- Auth Server
+	- app credentials + user credentials | token (signature, claims, expiration)
+- Resource Server
+	- resource URI + token | resource access
+- JWT
+- CORS (Configurar quais hosts podem acessar o backend)
+
+
+## Exemplos no projeto
+
+com.devsuperior.demo.config.AuthorizationServerConfig
+
+com.devsuperior.demo.config.ResourceServerConfig
+
+## Controle de acesso por perfil e rota
+
+> @PreAuthorize("hasRole('ROLE_ADMIN')")
+
+> @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+
