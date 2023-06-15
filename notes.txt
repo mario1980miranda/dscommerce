@@ -45,3 +45,43 @@
 11 - Criar CategoryDTO
 11.1 - adicionar list @NotEmpty de categories no ProductDTO
 11.2 - no service no insert/update copiar as categorias para o repository
+
+12 - Criar ClientDTO
+    Long id
+    String name
+    construtor com argumentos
+    construtor recebendo a entidade User
+    getters
+12.1 - PaymentDTO
+    Long id
+    Instant moment
+    construtor com argumentos
+    construtor recebendo a entidade Payment
+    getters
+12.2 - criar OrderItemDTO
+    Long productId
+    String name
+    Double price
+    Integer quantity
+    construtor com argumentos
+    construtor recebendo a entidade OrderItem
+    getters
+    adicionar metodo Double getSubTotal = price * quantity
+12.3 - Criar o OrderDTO
+    Long id
+    Instant moment
+    OrderStatus status
+    ClientDTO client
+    PaymentDTO payment
+    List<OrderItemDTO> items
+    construtor com argumentos
+    construtor recebendo a entidade Order
+    getters
+    adicionar metodo Double getTotal 
+12.4 - Criar OrderRepository
+12.5 - Criar OrderService
+    metodo findById
+12.6 - Criar um OrderController
+    /orders
+    /{id}
+
