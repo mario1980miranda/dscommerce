@@ -8,4 +8,9 @@
 3.5 - Testar com o H2 
 3.6 - adicionar no seed (ROLE_CLIENT no lugar de OPERATOR e senha encriptada)
 
-3.2 - estender UserDetails
+4 - Adicionar as dependencias SpringSecurity, AuthorizationServer e ResourceServer
+4.1 - Role impl GrantedAuthority e Override no getAuthority
+4.2 - User impl UserDetails
+4.3 - username = email
+4.4 - getAuthorities retorna roles
+4.5 - os 4 metodos relacionados a conta retornam true
