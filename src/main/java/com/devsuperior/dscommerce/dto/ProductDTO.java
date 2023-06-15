@@ -2,6 +2,7 @@ package com.devsuperior.dscommerce.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.devsuperior.dscommerce.entities.Product;
 
@@ -38,7 +39,7 @@ public class ProductDTO {
 		description = entity.getDescription();
 		price = entity.getPrice();
 		imgUrl = entity.getImgUrl();
-		entity.getCategories().forEach(cat -> categories.add(new CategoryDTO(cat)));
+		categories = entity.getCategories().stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
 	}
 
 	public Long getId() {
