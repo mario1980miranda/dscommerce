@@ -19,3 +19,11 @@
 5.1 - adicionar a projection
 5.2 - adicionar UserRepository com nativeQuery
 5.3 - implementar UserService
+
+6 - adicionar valores de configuracao no app.props
+7 - Checklist do Oauth2
+7.1 - adicionar pasta config
+7.2 - adicionar classes @Config de AuthServer e ResourceServer
+7.3 - adicionar pacote customgrant
+7.4 - adicionar classes do projeto demo e ajustar os imports
+7.5 - testar o login
