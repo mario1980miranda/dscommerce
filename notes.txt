@@ -41,3 +41,7 @@
 10 - Criar um DTO para os dados minimos do Produto
 10.1 - alterar o findAll para retornar o DTO anterior
 10.2 - ajustar o Service
+
+11 - Criar CategoryDTO
+11.1 - adicionar list @NotEmpty de categories no ProductDTO
+11.2 - no service no insert/update copiar as categorias para o repository

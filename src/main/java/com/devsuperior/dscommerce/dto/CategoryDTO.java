@@ -15,7 +15,7 @@ public class CategoryDTO {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	public CategoryDTO(Category entity) {
 		id = entity.getId();
 		name = entity.getName();
