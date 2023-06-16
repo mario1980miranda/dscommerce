@@ -1,7 +1,6 @@
 package com.devsuperior.dscommerce.services;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -25,26 +24,27 @@ public class OrderService {
 	private OrderItemRepository orderItemRepository;
 	private UserService userService;
 	private ProductRepository productRepository;
+	private AuthService authService;
 
 	// @formatter:off
 	public OrderService(OrderRepository orderRepository, 
 						OrderItemRepository orderItemRepository,
 						UserService userService, 
-						ProductRepository productRepository) {
+						ProductRepository productRepository,
+						AuthService authService) {
 		this.orderRepository = orderRepository;
 		this.orderItemRepository = orderItemRepository;
 		this.userService = userService;
 		this.productRepository = productRepository;
+		this.authService = authService;
 	}
 	// @formatter:on
 
-
 	@Transactional(readOnly = true)
 	public OrderDTO findById(final Long id) {
-		final Optional<Order> optionalOrder = this.orderRepository.findById(id);
-		final Order entity = optionalOrder.orElseThrow(() -> new ResourceNotFoundException());
-		OrderDTO dto = new OrderDTO(entity);
-		return dto;
+		final Order order = this.orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
+		this.authService.validateSelfUserOrAdmin(order.getClient().getId());
+		return new OrderDTO(order);
 	}
 
 	@Transactional
@@ -52,18 +52,18 @@ public class OrderService {
 		Order order = new Order();
 		order.setMoment(Instant.now());
 		order.setStatus(OrderStatus.WAITTING_PAYMENT);
-		
+
 		final User user = this.userService.autheticated();
 		order.setClient(user);
-		
+
 		order.getItems().addAll(orderDTO.getItems().stream().map(orderItemDTO -> {
 			Product product = this.productRepository.getReferenceById(orderItemDTO.getProductId());
 			return new OrderItem(order, product, orderItemDTO.getQuantity(), product.getPrice());
 		}).collect(Collectors.toList()));
-		
+
 		this.orderRepository.save(order);
 		this.orderItemRepository.saveAll(order.getItems());
-		
+
 		return new OrderDTO(order);
 	}
 
