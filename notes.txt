@@ -129,3 +129,9 @@
     criar CategoryController
     metodo GET findAll
 
+15 - Validacoes de dados
+    ProductDTO
+        price @NotNull
+    ValidationError
+        addError remover se x -> x.getFieldName().equals(fieldName) antes de adicionar
+    
