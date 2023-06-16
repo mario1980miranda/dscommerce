@@ -122,3 +122,10 @@
     OrderService 
         injetar AuthService
         antes de retornar orderDTO validar se o usuario logado eh admin ou eh o dono do pedido
+
+14 - criar CategoryRepository
+    criar CategoryService
+    metodo transacional retorna List de CategoryDTO
+    criar CategoryController
+    metodo GET findAll
+
