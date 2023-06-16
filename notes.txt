@@ -85,3 +85,41 @@
     /orders
     /{id}
 
+12 - Salvando pedido (15:10")
+    nova interface OrderItemRepository <OrderItem, OrderItemPK>
+    adicionar validacoes no OrderDTO (items nao pode ser vazio)
+    OrderService operacao transacional para salvar Order
+        order : Order
+        moment now()
+        status.WATING
+        adicionar referencia para OrderItemRepository
+        adicionar o UserService e recuperar o usuario
+        adicionar referencia para ProductRepository
+        para cada OrderItemDTO 
+            pegar uma referencia de produto pelo ID -> product : Product
+            new OrderItem(order, product, itemDTO->quantity, product->price)
+            order->items->add(item)
+        orderRepository.save(order)
+        orderItemRepository.saveAll(order->items)
+    OrderController novo metodo insert para qualquer cliente logado
+    no OrderItemDTO
+        adicionar o imgUrl nos atributos
+        no construtor e no construtor da entidade
+        get
+
+13 - Controle de acesso self
+    OrderController, alterar findById para ROLE_CLIENT e ROLE_ADMIN
+    Criar uma exception ForbiddenException
+    no handler adicionar tratamento para acesso proibido
+    na classe User
+        metodo boolean hasRole(String role)
+    Criar classe AuthService
+        referenciar UserService
+        metodo validateSelfOrAdmin(userId)
+        recuperar o user
+        se user nao e ADMIN e nao tem o mesmo userId
+            ForbiddenException
+    OrderService 
+        injetar AuthService
+        antes de retornar orderDTO validar se o usuario logado eh admin ou eh o dono do pedido
+
