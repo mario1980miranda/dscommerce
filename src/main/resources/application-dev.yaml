@@ -1,0 +1,26 @@
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/dscommerce
+    username: postgres
+    password: 1234567
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non-contextual-creation: true
+#        hbm2ddl:
+#          delimiter: ;
+#      jakarta:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              create-target: create.sql
+    

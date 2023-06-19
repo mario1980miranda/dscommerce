@@ -74,6 +74,4 @@ public class OrderItem {
 		OrderItem other = (OrderItem) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	
 }

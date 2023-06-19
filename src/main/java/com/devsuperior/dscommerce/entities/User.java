@@ -154,7 +154,7 @@ public class User implements UserDetails, Serializable {
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -177,7 +177,5 @@ public class User implements UserDetails, Serializable {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", birthDate="
 				+ birthDate + ", password=" + password + "]";
 	}
-
-
 
 }
