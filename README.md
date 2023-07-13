@@ -336,3 +336,41 @@ com.devsuperior.demo.config.ResourceServerConfig
 
 > @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 
+## JaCoCo
+
+Adicionar o plugin :
+
+```xml
+<plugin>
+	<groupId>org.jacoco</groupId>
+	<artifactId>jacoco-maven-plugin</artifactId>
+	<version>0.8.7</version>
+	<configuration>
+		<excludes>
+			<exclude>com/devsuperior/dscommerce/DscommerceApplication.class</exclude>
+			<exclude>com/devsuperior/dscommerce/config/**</exclude>
+			<exclude>com/devsuperior/dscommerce/entities/**</exclude>
+			<exclude>com/devsuperior/dscommerce/dto/**</exclude>
+			<exclude>com/devsuperior/dscommerce/controllers/handlers/**</exclude>
+			<exclude>com/devsuperior/dscommerce/services/exceptions/**</exclude>
+		</excludes>
+	</configuration>
+	<executions>
+		<execution>
+			<goals>
+				<goal>prepare-agent</goal>
+			</goals>
+		</execution>
+		<execution>
+			<id>jacoco-report</id>
+			<phase>prepare-package</phase>
+			<goals>
+				<goal>report</goal>
+			</goals>
+			<configuration>
+				<outputDirectory>target/jacoco-report</outputDirectory>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
+```
