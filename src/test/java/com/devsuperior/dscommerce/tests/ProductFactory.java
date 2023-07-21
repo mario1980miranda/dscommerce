@@ -12,6 +12,13 @@ public class ProductFactory {
 		return product;
 	}
 	
+	public static Product createNewProduct() {
+		final Category category = CategoryFactory.createCategory();
+		Product product = new Product(null, "PlayStation 5", "Lorem ipsum dolor sit amet, conse", 599.99, "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg");
+		product.getCategories().add(category);
+		return product;
+	}
+	
 	public static Product createProduct(final String name) {
 		Product product = createProduct();
 		product.setName(name);
